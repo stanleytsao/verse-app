@@ -2,7 +2,7 @@
 
 var verse = "Proverbs" + Math.floor(Math.random() * 31) + ":" + Math.floor(Math.random() * 36);
 
-$(document).ready(function () {
+function GetVerse() {
     $.ajax({
         url: "https://api.esv.org/v3/passage/html/?q=" + verse + "&include-footnotes=false&include-footnote-body=false&include-audio-link=false&include-short-copyright=false",
         type: 'GET',
@@ -10,7 +10,11 @@ $(document).ready(function () {
         success: function (data) {
             //alert(JSON.stringify(data));
             //$("#Ref").text(JSON.stringify(data.canonical));
-            $("#Display").append(data.passages);
+            $("#VerseDisplay").append(data.passages);
         }
     });
+}
+
+$(document).ready(function () {
+    GetVerse();
 });
