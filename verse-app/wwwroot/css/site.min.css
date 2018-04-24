@@ -1,1 +1,1 @@
-body{background-color:#efffff;padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}.card{height:200px;background-color:#faebd7}
+body{background-color:#ddd;padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}.card{height:200px;width:300px;margin:20px;float:left}.front{background-color:#e6e6fa;text-align:center;padding:20px;border:5px solid #fff;border-radius:.2em}.back{background-color:#7fffd4;text-align:center;padding:20px;border:5px solid #fff;border-radius:.2em}

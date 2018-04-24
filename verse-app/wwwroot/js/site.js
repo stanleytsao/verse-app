@@ -2,34 +2,31 @@
 
 var NewTestament = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1Corinthians", "2Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1Thessalonians", "2Thessalonians", "1Timothy", "2Timothy", "Titus", "Philemon", "Hebrews", "James", "1Peter", "2Peter", "1John", "2John", "3John", "Jude", "Revelation"];
 
-var Test = ["Proverbs 3:5-6", "Romans 3:23", "Jeremiah 29:11"];
-//var Test = [{ "r": 1, "v": "verse1" }, { "r": 2, "v": "verse2" }, { "r": 3, "v": "verse3" }, { "r": 4, "v": "verse4" }];
+var Test = ["John3:16", "Proverbs 3:5-6", "Romans 3:23", "Jeremiah 29:11"];
 
-var verse = "John3:16";
-//var verse = "Proverbs" + Math.floor(Math.random() * 31) + ":" + Math.floor(Math.random() * 36);
-
-function GetVerse() {
+function GetVerse(ref) {
     $.ajax({
-        url: "https://api.esv.org/v3/passage/html/?q=" + verse + "&include-footnotes=false&include-footnote-body=false&include-audio-link=false&include-short-copyright=false",
+        url: "https://api.esv.org/v3/passage/text/?q=" + ref + "&include-passage-references=false&include-first-verse-numbers=false&include-verse-numbers=false&include-footnotes=false&include-footnote-body=false&include-short-copyright=true&include-passage-horizontal-lines=false&include-heading-horizontal-lines=false&include-headings=false",
         type: 'GET',
         headers: { "Authorization": "Token 00706264fcd4c12e299878dbdf3af0608adbabff" },
         success: function (data) {
-            //alert(JSON.stringify(data));
-            //$("#Ref").text(JSON.stringify(data.canonical));
-            $("#VerseDisplay").append(data.passages);
+            $("#Board").append('<div class="card"><div class="front">' + ref + '</div><div class="back">' + data.passages + '</div></div>');
+            $(".card").flip({
+                trigger: 'click'
+            });
         }
     });
 }
 
 $(document).ready(function () {
-    //GetVerse();
-
-    $.each(Test, function (key, value) {
-        $("#Board").append('<div class="card"><div class="front">' + key + '</div><div class="back">' + value + '</div></div>');
-    });
-
-    $(".card").flip({
-        trigger: 'click'
-    });
+    //$.each(Test, function (key, value) {
+    //    GetVerse(value);
+    //});
+    while (Test.length > 0) {
+        var i = Math.floor(Math.random() * Test.length);
+        GetVerse(Test[i]);
+        $("#Board").append('<div class="card"><div class="front"></div><div class="back">' + Test[i] + '</div></div>');
+        Test.splice(i, 1);
+    }
 });
 
