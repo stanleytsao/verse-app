@@ -2,7 +2,8 @@
 
 var NewTestament = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1Corinthians", "2Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1Thessalonians", "2Thessalonians", "1Timothy", "2Timothy", "Titus", "Philemon", "Hebrews", "James", "1Peter", "2Peter", "1John", "2John", "3John", "Jude", "Revelation"];
 
-var Test = [{ "r": 1, "v": "verse1" }, { "r": 2, "v": "verse2" }, { "r": 3, "v": "verse3" }, { "r": 4, "v": "verse4" }];
+var Test = ["Proverbs 3:5-6", "Romans 3:23", "Jeremiah 29:11"];
+//var Test = [{ "r": 1, "v": "verse1" }, { "r": 2, "v": "verse2" }, { "r": 3, "v": "verse3" }, { "r": 4, "v": "verse4" }];
 
 var verse = "John3:16";
 //var verse = "Proverbs" + Math.floor(Math.random() * 31) + ":" + Math.floor(Math.random() * 36);
@@ -23,12 +24,12 @@ function GetVerse() {
 $(document).ready(function () {
     //GetVerse();
 
-    //$.each(Test, function (key, value) {
-    //    var $btn = $('<input/>').attr({ type: 'button', value: value.v });
-    //    $(".test").append($btn);
-    //});
+    $.each(Test, function (key, value) {
+        $("#Board").append('<div class="card"><div class="front">' + key + '</div><div class="back">' + value + '</div></div>');
+    });
+
+    $(".card").flip({
+        trigger: 'click'
+    });
 });
 
-$(".card").flip({
-    trigger: 'click'
-});
