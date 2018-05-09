@@ -1,15 +1,23 @@
 ﻿var Timer = null;
 var Time = 120;
 var Score = 0;
-var Status = "Start";
+var Status = 1;
 var Phil = ["1:6", "2:1", "2:5", "2:6", "2:12", "3:20", "4:4", "4:6-7", "4:8", "4:13", "4:19"];
+var ChVs = [30, 30, 21, 23];
+var Refs = [];
 
 $(document).ready(function () {
     $("#EndPage").hide();
+    for (var i = 0; i < ChVs.length; i++) {
+        for (var j = 0; j < ChVs[i]; j++) {
+            Refs.push(i + 1 + ":" + j + 1);
+        }
+    }
 });
 
 $("#Start").click(function () {
     $("#StartPage").hide();
+    Status = 2;
     GetVerse();
     $("#Typed").focus();
     setTimeout(
@@ -19,17 +27,16 @@ $("#Start").click(function () {
 });
 
 $(document).keypress(function (e) {
-    if (e.keyCode === 13 && Status === "Start") {
-        Status = "";
+    if (e.keyCode === 13 && Status === 1) {
         $("#Start").click();
-    } else if (e.keyCode === 13 && Status === "End") {
-        Status = "";
+    } else if (e.keyCode === 13 && Status === 4) {
         $("#Restart").click();
     }
 });
 
 $("#Restart").click(function () {
     $("#EndPage").hide();
+    Status = 2;
     Score = 0;
     GetVerse();
     $("#Typed").focus();
@@ -40,6 +47,11 @@ $("#Restart").click(function () {
 });
 
 $("#Submit").click(function () {
+    if (Status === 2) {
+        Status = 3;
+    } else {
+        Status = 2;
+    }
     SubmitVerse();
     GetVerse();
     $("#Typed").val('');
@@ -52,10 +64,14 @@ $("#Typed").on("keypress", function (e) {
 });
 
 function GetVerse() {
-    var rand = Math.round(Math.random() * (Phil.length - 1));
-    var ref = "Philippians" + Phil[rand];
+    var ref = Phil[Math.round(Math.random() * (Phil.length - 1))];
+
+    if (Status === 3) {
+        ref = Refs[Math.round(Math.random() * (Refs.length - 1))];
+    }
+    
     $.ajax({
-        url: "https://api.esv.org/v3/passage/html/?q=" + ref + "&include-verse-anchors=false&include-chapter-numbers=false&include-first-verse-numbers=false&include-footnotes=false&include-headings=false&include-subheadings=false&include-audio-link=false",
+        url: "https://api.esv.org/v3/passage/html/?q=Philippians" + ref + "&include-verse-anchors=false&include-chapter-numbers=false&include-first-verse-numbers=false&include-footnotes=false&include-headings=false&include-subheadings=false&include-audio-link=false",
         type: 'GET',
         headers: { "Authorization": "Token 00706264fcd4c12e299878dbdf3af0608adbabff" },
         success: function (data) {
@@ -65,8 +81,9 @@ function GetVerse() {
 }
 
 function SubmitVerse() {
-    var src = $("#Typed").val();
-    var tgt = $("#Verse").find("p:first").text();
+    var src = $("#Typed").val().replace(/[^A-Za-z]/gi, '');
+    var tgt = $("#Verse").find("p:first").text().replace(/[^A-Za-z]/gi, '');
+    console.log(src, tgt);
     var max = calculateLevDistance("", tgt);
     var act = calculateLevDistance(src, tgt);
     var percent = Math.round((1 - act / max) * 100);
@@ -82,8 +99,10 @@ function SubmitVerse() {
 function TimeTick() {
     Time -= 1;
     if (Time === 0) {
+        SubmitVerse();
+        $("#Typed").blur();
         clearInterval(Timer);
-        Status = "End";
+        Status = 4;
         $("#FinalScore").text("Score: " + Score);
         $("#EndPage").show();
     } else {
