@@ -1,8 +1,8 @@
 ﻿var Timer = null;
 var Time = 120;
-var LastTime = 120;
 var Score = 0;
-var Verse;
+var Status = "Start";
+var Phil = ["1:6", "2:1", "2:5", "2:6", "2:12", "3:20", "4:4", "4:6-7", "4:8", "4:13", "4:19"];
 
 $(document).ready(function () {
     $("#EndPage").hide();
@@ -10,7 +10,28 @@ $(document).ready(function () {
 
 $("#Start").click(function () {
     $("#StartPage").hide();
-    GetVerse("jn3:16");
+    GetVerse();
+    $("#Typed").focus();
+    setTimeout(
+        Timer = setInterval(TimeTick, 1000),
+        1000
+    );
+});
+
+$(document).keypress(function (e) {
+    if (e.keyCode === 13 && Status === "Start") {
+        Status = "";
+        $("#Start").click();
+    } else if (e.keyCode === 13 && Status === "End") {
+        Status = "";
+        $("#Restart").click();
+    }
+});
+
+$("#Restart").click(function () {
+    $("#EndPage").hide();
+    Score = 0;
+    GetVerse();
     $("#Typed").focus();
     setTimeout(
         Timer = setInterval(TimeTick, 1000),
@@ -20,15 +41,19 @@ $("#Start").click(function () {
 
 $("#Submit").click(function () {
     SubmitVerse();
+    GetVerse();
+    $("#Typed").val('');
 });
 
 $("#Typed").on("keypress", function (e) {
-    if (e.keyCode === 13) {
-        SubmitVerse();
+    if (e.keyCode === 13 && $("#Typed").val().length > 5) {
+        $("#Submit").click();    
     }
 });
 
-function GetVerse(ref) {
+function GetVerse() {
+    var rand = Math.round(Math.random() * (Phil.length - 1));
+    var ref = "Philippians" + Phil[rand];
     $.ajax({
         url: "https://api.esv.org/v3/passage/html/?q=" + ref + "&include-verse-anchors=false&include-chapter-numbers=false&include-first-verse-numbers=false&include-footnotes=false&include-headings=false&include-subheadings=false&include-audio-link=false",
         type: 'GET',
@@ -40,33 +65,25 @@ function GetVerse(ref) {
 }
 
 function SubmitVerse() {
-    var src = $("#Typed").val().replace(/\W/g, '');
-    var tgt = $(".woc").text().replace(/\W/g, '');
+    var src = $("#Typed").val();
+    var tgt = $("#Verse").find("p:first").text();
     var max = calculateLevDistance("", tgt);
     var act = calculateLevDistance(src, tgt);
-    var subscore = Math.round((1 - act / max) * max * 10 / (LastTime - Time));
+    var percent = Math.round((1 - act / max) * 100);
+    var subscore = Math.round(percent * percent * max / 1000);
+    console.log(act, max);
 
     Score += subscore;
     $("#Score").text("Score: " + Score);
-    
-    var row = $("#History").insertRow(0);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    //cell1.innerHTML = subscore;
-    cell2.innerHTML = (1 - act / max).toFixed(2);
-    //cell3.innerHTML = LastTime - Time + " sec";
-    //cell4.innerHTML = $("#Typed").val();
 
-    LastTime = Time;
-    GetVerse();
+    $("#History > tbody").prepend('<tr><td>' + subscore + '</td > <td>' + percent + '%</td> <td>' + $("#Typed").val() + '</td></tr > ');
 }
 
 function TimeTick() {
     Time -= 1;
     if (Time === 0) {
         clearInterval(Timer);
+        Status = "End";
         $("#FinalScore").text("Score: " + Score);
         $("#EndPage").show();
     } else {
