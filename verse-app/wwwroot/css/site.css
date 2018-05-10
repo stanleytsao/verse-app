@@ -9,7 +9,13 @@
     padding-right: 15px;
 }
 
-#StartPage, #EndPage {
+.dropdown-toggle {
+    min-width: 100px;
+    float: left;
+    margin: 5px;
+}
+
+/*#StartPage, #EndPage {
     position: absolute;
     left: 0;
     top: 0;
@@ -52,6 +58,6 @@
 th, td {
     text-align: center !important;
     word-wrap: break-word;
-}
+}*/
 
 
