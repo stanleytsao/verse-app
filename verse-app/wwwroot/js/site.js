@@ -1,18 +1,27 @@
-﻿var Timer = null;
-var Time = 120;
+﻿
+
+var Timer = null;
+var Time = 0;
 var Score = 0;
-var Status = 1;
+var Page = 1;
+
 var Phil = ["1:6", "2:1", "2:5", "2:6", "2:12", "3:20", "4:4", "4:6-7", "4:8", "4:13", "4:19"];
 var ChVs = [30, 30, 21, 23];
 var Refs = [];
 
 $(document).ready(function () {
+    $("#TimeScore").hide();
+    $("#Typer").hide();
     $("#EndPage").hide();
-    for (var i = 0; i < ChVs.length; i++) {
-        for (var j = 0; j < ChVs[i]; j++) {
-            Refs.push(i + 1 + ":" + j + 1);
-        }
-    }
+    $("#History").hide();
+
+
+
+    //for (var i = 0; i < ChVs.length; i++) {
+    //    for (var j = 0; j < ChVs[i]; j++) {
+    //        Refs.push(i + 1 + ":" + j + 1);
+    //    }
+    //}
 });
 
 $("#Start").click(function () {
@@ -119,13 +128,11 @@ function calculateLevDistance(src, tgt) {
 
     var srcLength = src.length,
         tgtLength = tgt.length,
-        tempString, tempLength; // for swapping
+        tempString, tempLength;
 
     var resultMatrix = new Array();
-    resultMatrix[0] = new Array(); // Multi dimensional
-
-    // To limit the space in minimum of source and target,
-    // we make sure that srcLength is greater than tgtLength
+    resultMatrix[0] = new Array();
+    
     if (srcLength < tgtLength) {
         tempString = src; src = tgt; tgt = tempString;
         tempLength = srcLength; srcLength = tgtLength; tgtLength = tempLength;
@@ -143,7 +150,7 @@ function calculateLevDistance(src, tgt) {
             resultMatrix[i][j] = Math.min(
                 resultMatrix[i - 1][j] + 1,
                 resultMatrix[i][j - 1] + 1,
-                resultMatrix[i - 1][j - 1] + realCost // same logic as our previous example.
+                resultMatrix[i - 1][j - 1] + realCost
             );
         }
     }
@@ -152,3 +159,15 @@ function calculateLevDistance(src, tgt) {
 }
 
 
+// ESV API
+function GetPassage() {
+    var ref = $("Book").val() + $("Chapter").val();
+    $.ajax({
+        url: "https://api.esv.org/v3/passage/html/?q=" + ref + "&include-verse-anchors=false&include-chapter-numbers=false&include-first-verse-numbers=false&include-footnotes=false&include-headings=false&include-subheadings=false&include-audio-link=false",
+        type: 'GET',
+        headers: { "Authorization": "Token 00706264fcd4c12e299878dbdf3af0608adbabff" },
+        success: function (data) {
+            $("#Passage").html(data.passages);
+        }
+    });
+}

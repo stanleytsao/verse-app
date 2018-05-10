@@ -1,47 +1,73 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Bible Passage Typer";
 }
 <div class="row">
-    <div class="col-md-12 text-right">
+    <div id="PassagePicker">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                Book
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Matthew</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Luke</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">John</a></li>
+                @*<li role="presentation" class="divider"></li>*@
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                Chapter
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                @*<li role="presentation" class="divider"></li>*@
+            </ul>
+        </div>
+        <input type="submit" class="btn btn-default" value="Start" id="Start" />
+    </div>
+    <div id="TimeScore" class="col-md-12 text-right">
         <strong id="Time">Time: 2:00</strong>
         <strong> | </strong>
         <strong id="Score">Score: 0</strong>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12" id="Verse"></div>
-</div>
-
-<div class="row">
+<div id="Typer" class="row">
+    <div class="col-md-12" id="Passage"></div>
     <div class="col-md-12">
         <input type="text" id="Typed" />
         <input type="submit" class="btn btn-default" value="Submit" id="Submit" />
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table class="table" id="History">
-            <thead>
-                <tr>
-                    <th>Score</th>
-                    <th>% Match</th>
-                    <th>Verse</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div id="StartPage">
-    <input type="submit" class="btn btn-default" value="Start" id="Start" />
-</div>
-
 <div id="EndPage">
-    <h3 id="FinalScore" class="text-center"></h3>
-    <input type="submit" class="btn btn-default" value="Replay" id="Restart" />
-</div>
+        <h3 id="FinalScore" class="text-center"></h3>
+        <input type="submit" class="btn btn-default" value="Replay" id="Restart" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" id="History">
+                <thead>
+                    <tr>
+                        <th>Score</th>
+                        <th>% Match</th>
+                        <th>Verse</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
