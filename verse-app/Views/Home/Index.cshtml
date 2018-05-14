@@ -1,59 +1,72 @@
 ﻿@{
-    ViewData["Title"] = "Bible Passage Typer";
+    ViewData["Title"] = "Scripture Speed Test";
 }
 <div class="row">
-    <div id="PassagePicker" class="col-md-12">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+    <div id="PassagePicker" class="col-md-12 text-center">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <select class="mdl-textfield__input" id="Book" name="book">
+                <option></option>
+            </select>
+            <label class="mdl-textfield__label" for="book">Book</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <select class="mdl-textfield__input" id="Chapter" name="chapter">
+            </select>
+            <label class="mdl-textfield__label" for="chapter">Chapter</label>
+        </div>
+
+        @*<div class="dropdown">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect dropdown-toggle" type="button" data-toggle="dropdown" aria-label="Book">
                 <span id="SelectedBook">Book</span>
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" id="Book">
-            </ul>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <ul class="dropdown-menu" id="Book"></ul>
+        </div>*@
+        @*<div class="dropdown">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect dropdown-toggle" type="button" data-toggle="dropdown" aria-label="Chapter">
                 <span id="SelectedChapter">Chapter</span>
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" id="Chapter">
-                @*<li role="presentation" class="divider"></li>*@
-            </ul>
-        </div>
-        <input type="submit" class="btn btn-default" value="Start" id="Start" />
+            <ul class="dropdown-menu" id="Chapter"></ul>
+        </div>*@
+        <button id="Start" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" aria-label="Start">Start</button>
+        @*<input type="submit" class="btn btn-default" value="Start" id="Start" aria-label="Start"/>*@
     </div>
 </div>
 
 <div id="PassageTyper" class="row">
-    <strong id="Time">Time: 0:00</strong>
-    <div class="col-md-12" id="Passage"></div>
+    <div class="col-md-12 text-right">
+        <strong id="WPM">WPM: 0</strong>
+        <strong id="Time">Time: 0:00</strong>
+    </div>
+    <div class="col-md-12" id="Passage">
+    </div>
     <div class="col-md-12">
-        <input type="text" id="TextBox" />
-        <input type="submit" class="btn btn-default" value="Submit" id="Submit" />
+        <input type="text" id="TextBox" aria-label="TextBox"/>
+        <input type="submit" class="btn btn-default" value="Submit" id="Submit" aria-label="Submit"/>
     </div>
 </div>
 
 <div id="EndPage">
-        <h3 id="FinalScore" class="text-center"></h3>
-        <input type="submit" class="btn btn-default" value="Replay" id="Restart" />
-    </div>
+    <h3 id="FinalScore" class="text-center"></h3>
+</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table" id="History">
-                <thead>
-                    <tr>
-                        <th>Score</th>
-                        <th>% Match</th>
-                        <th>Verse</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="mdl-data-table mdl-js-data-table" id="History">
+            <thead>
+                <tr>
+                    <th>WPM</th>
+                    <th>Accuracy</th>
+                    <th class="mdl-data-table__cell--non-numeric">Verse</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
+</div>
 
 
 
