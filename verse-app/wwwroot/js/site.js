@@ -15,18 +15,15 @@ $(document).ready(function() {
     // Generate list of books
     $.each(books, function (book) {
         $("#Book").append('<option value="' + book + '">' + book + '</option>');
-        //$("#Book").append('<li><a href="#">' + book + '</a></li>');
     });
 
+    // Generate chapters in selected book
     $("#Book").change(function () {
         var value = $(this).val();
         var chapters = books[value];
         $("#Chapter").html('<option></option>');
         for (var i = 0; i < chapters; i++) {
             $("#Chapter").append('<option value="' + (i + 1) + '">' + (i + 1) + '</option>');
-            //$("#Chapter").change(function () {
-            //    var value = $(this).val();
-            //});
         }
     });
 });
@@ -38,7 +35,6 @@ $("#Start").click(function () {
     var ref = $("#Book").val() + $("#Chapter").val();
     GetStartEnd(ref);
     $("#PassageTyper").show();
-    $("#History").show();
 });
 
 // ESV API
@@ -83,16 +79,18 @@ function TimeTick() {
 $("#Submit").click(function () {
     var src = $("#TextBox").val().replace(/[^A-Za-z]/gi, '').toLowerCase();
     var tgt = $("#Passage").find("p").not("p:last").text().replace(/[^A-Za-z]/gi, '').toLowerCase();
-    console.log(tgt);
     var max = calculateLevDistance("", tgt);
     var act = calculateLevDistance(src, tgt);
     var percent = ((1 - act / max) * 100).toFixed(2);
     var words = $("#TextBox").val().split(" ").length;
     var WPM = (words / (Time - SplitTime) * 60).toFixed(2);
-        
+
+    $("#History").show();
     $("#History > tbody").prepend('<tr><td>' + WPM + '</td > <td>' + percent + '%</td> <td class="mdl-data-table__cell--non-numeric">' + $("#TextBox").val() + '</td></tr > ');
     $("#TextBox").val('');
     TotalWords += words;
+    console.log(TotalWords, Time);
+    $("#WPM").text((TotalWords / Time * 60).toFixed(1));
 
     if (FirstVerse < LastVerse) {
         FirstVerse += 1;
