@@ -8,7 +8,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Roboto:300,700" rel="stylesheet">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-lime.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -17,7 +17,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Roboto:300,700" rel="stylesheet">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-lime.min.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
@@ -25,6 +25,11 @@
 <body>
     <div class="container body-content">
         @RenderBody()
+        
+        <footer class="text-center">
+            <hr />
+            made by <a href="github.com/stanleytsao">Stanley Tsao</a>
+        </footer>
     </div>
 
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
