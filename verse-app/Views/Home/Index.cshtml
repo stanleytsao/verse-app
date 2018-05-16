@@ -2,7 +2,12 @@
     ViewData["Title"] = "Scripture Speed Test";
 }
 <div class="row">
-    <div id="PassagePicker" class="col-md-12 text-center">
+    <div class="col-md-3">
+        <span id="Title">Scripture</span>
+        <p id="Subtitle">Speed Test</p>
+    </div>
+
+    <div id="PassagePicker" class="col-md-9 text-right">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <select class="mdl-textfield__input" id="Book" name="book">
@@ -23,18 +28,16 @@
 </div>
 
 <div id="PassageTyper" class="row">
-    <div class="col-md-12 text-right">
+    <div class="col-md-12 text-center">
         <strong id="WPM">WPM: 0</strong>
         <strong id="Time">Time: 0:00</strong>
     </div>
     <div class="col-md-12" id="Passage">
     </div>
     <div class="col-md-12">
-        @*<input type="text" id="TextBox" aria-label="TextBox"/>*@
         <div class="mdl-textfield mdl-js-textfield" id="TextBoxContainer">
             <input class="mdl-textfield__input" type="text" id="TextBox" aria-label="TextBox">
         </div>
-        @*<input type="submit" class="btn btn-default" value="Submit" id="Submit" aria-label="Submit" />*@
         <button id="Submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-ripple-effect" aria-label="Submit">Submit</button>
     </div>
 </div>

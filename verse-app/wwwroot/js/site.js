@@ -29,12 +29,15 @@ $(document).ready(function() {
 });
 
 $("#Start").click(function () {
-    Time = 0;
-    SplitTime = 0;
-    TotalWords = 0;
-    var ref = $("#Book").val() + $("#Chapter").val();
-    GetStartEnd(ref);
-    $("#PassageTyper").show();
+    if ($("#Chapter").val() > 0) {
+        Time = 0;
+        SplitTime = 0;
+        TotalWords = 0;
+        var ref = $("#Book").val() + $("#Chapter").val();
+        GetStartEnd(ref);
+        $("#PassageTyper").show();
+    }
+    
 });
 
 // ESV API
@@ -69,11 +72,18 @@ function GetVerse(ref) {
 
 function TimeTick() {
     Time += 1;
-    if (Time % 60 < 10) {
-        $("#Time").text("Time: " + Math.floor(Time / 60) + ":0" + Time % 60);
+    if (Time === 180) {
+        clearInterval(Timer);
+        $("#FinalScore").text((TotalWords / Time * 60).toFixed(1));
+        $("#EndPage").show();
+        $("#PassageTyper").hide();
     } else {
-        $("#Time").text("Time: " + Math.floor(Time / 60) + ":" + Time % 60);
-    }
+        if (Time % 60 < 10) {
+            $("#Time").text("Time: " + Math.floor(Time / 60) + ":0" + Time % 60);
+        } else {
+            $("#Time").text("Time: " + Math.floor(Time / 60) + ":" + Time % 60);
+        }
+    }    
 }
 
 $("#Submit").click(function () {
@@ -89,7 +99,6 @@ $("#Submit").click(function () {
     $("#History > tbody").prepend('<tr><td>' + WPM + '</td > <td>' + percent + '%</td> <td class="mdl-data-table__cell--non-numeric">' + $("#TextBox").val() + '</td></tr > ');
     $("#TextBox").val('');
     TotalWords += words;
-    console.log(TotalWords, Time);
     $("#WPM").text((TotalWords / Time * 60).toFixed(1));
 
     if (FirstVerse < LastVerse) {
@@ -98,7 +107,7 @@ $("#Submit").click(function () {
         SplitTime = Time;
     } else {
         clearInterval(Timer);
-        $("#FinalScore").text(TotalWords / Time);
+        $("#FinalScore").text((TotalWords / Time * 60).toFixed(1));
         $("#EndPage").show();
         $("#PassageTyper").hide();
     }
