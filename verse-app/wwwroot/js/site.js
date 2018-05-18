@@ -7,7 +7,13 @@ var TotalWords;
 var FirstVerse;
 var LastVerse;
 
-$(document).ready(function() {
+$(document).ready(function () {
+    if ($(window).width() >= 768) {
+        $("#NoMobile").hide();
+    } else {
+        $("#NoMobile").show();
+    }
+
     $("#EndPage").hide();
     $("#PassageTyper").hide();
     $("#History").hide();
@@ -26,6 +32,15 @@ $(document).ready(function() {
             $("#Chapter").append('<option value="' + (i + 1) + '">' + (i + 1) + '</option>');
         }
     });
+});
+
+$(window).on('resize', function () {
+    var win = $(this);
+    if (win.width() >= 768) {
+        $("#NoMobile").hide();
+    } else {
+        $("#NoMobile").show();
+    }
 });
 
 $("#Start").click(function () {

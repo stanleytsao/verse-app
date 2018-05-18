@@ -1,5 +1,4 @@
 ﻿body {
-    background-color: honeydew;
     padding-top: 20px;
     padding-bottom: 20px;
     font-family: Roboto;
@@ -14,14 +13,14 @@
 #Title {
     font-family: Great Vibes;
     font-size: 3em;
-    color: greenyellow;
+    color: rgb(148, 208, 79);
 }
 
 #Subtitle {
     margin: -8px 0 0 0;
     font-weight: 700;
     font-size: 1.2em;
-    color: limegreen;
+    color: rgb(119, 167, 63);
     letter-spacing: 4.5px;
 }
 
@@ -70,4 +69,20 @@ td {
     word-wrap: break-word;
 }
 
+footer {
+    margin-top: 5em;
+}
+
+/* Not for mobile use! */
+#NoMobile {
+    background-color: lightgrey;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    height: 100vh;
+}
+
+#NoMobile h1 {
+    padding: 1em;
+}
 
