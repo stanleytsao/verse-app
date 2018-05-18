@@ -74,7 +74,7 @@ function TimeTick() {
     Time += 1;
     if (Time === 180) {
         clearInterval(Timer);
-        $("#FinalScore").text((TotalWords / Time * 60).toFixed(1));
+        $("#FinalScore").text((TotalWords / Time * 60).toFixed(1) + " WPM");
         $("#EndPage").show();
         $("#PassageTyper").hide();
     } else {
@@ -91,9 +91,9 @@ $("#Submit").click(function () {
     var tgt = $("#Passage").find("p").not("p:last").text().replace(/[^A-Za-z]/gi, '').toLowerCase();
     var max = calculateLevDistance("", tgt);
     var act = calculateLevDistance(src, tgt);
-    var percent = ((1 - act / max) * 100).toFixed(2);
+    var percent = ((1 - act / max) * 100).toFixed(1);
     var words = $("#TextBox").val().split(" ").length;
-    var WPM = (words / (Time - SplitTime) * 60).toFixed(2);
+    var WPM = (words / (Time - SplitTime) * 60).toFixed(1) + " WPM";
 
     $("#History").show();
     $("#History > tbody").prepend('<tr><td>' + WPM + '</td > <td>' + percent + '%</td> <td class="mdl-data-table__cell--non-numeric">' + $("#TextBox").val() + '</td></tr > ');
